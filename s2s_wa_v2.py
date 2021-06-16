@@ -68,7 +68,7 @@ def download_YT_video(url, video_name, directory_name):
         os.chdir(directory_name)
 
         # downloads video into local directory
-        best.download(filepath=os.getcwd()+ "\\" + video_file_name, quiet=False)
+        best.download(filepath=os.getcwd()+ "/" + video_file_name, quiet=False)
 
         # get VideoFileClip instance of original video
         org_video = VideoFileClip(video_file_name)

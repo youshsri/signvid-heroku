@@ -48,7 +48,7 @@ if URL:
             else:
 
                 # define sign_video_filename for use
-                sign_video_path = os.getcwd() + "//with_signs.mp4"
+                sign_video_path = os.getcwd() + "/with_signs.mp4"
 
                 # write composite video into directory and read its bytes to be returned
                 video.write_videofile(sign_video_path)
@@ -68,6 +68,7 @@ if URL:
         # exception occurs if video could not be processed or does not exist
         except:
             st.error('''Sorry, the video you entered could not be processed or does not exist.''')
+            os.chdir("..")
 
 # about us sidebar
 about = st.sidebar.beta_expander("About us")
