@@ -200,6 +200,8 @@ def retrieve_file(word, directory):
 
         # change directory to sse_dataset
         os.chdir(".."), os.chdir("sse_dataset")
+        
+        print("1")
 
         # check if sign exists in video database
         if file_object in os.listdir():
@@ -212,6 +214,8 @@ def retrieve_file(word, directory):
 
             # exit to previous directory
             os.chdir(".."), os.chdir(directory)
+            
+            print("2")
 
             return file_clip
 
