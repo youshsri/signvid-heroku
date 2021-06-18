@@ -326,12 +326,18 @@ def main(url):
 
         # retrieve wav file
         wav_file = get_wav(video_file_name)
+        
+        print("Complete")
 
         # create subclips
         subclip_dictionary = create_subclips(wav_file)
+        
+        print("Complete")
 
         # get transcript of video
         transcript = get_transcript(subclip_dictionary)
+        
+        print("Complete")
 
         # get sign translations from transcript
         sign_translations = get_signs(transcript, videolength, dir_name)
