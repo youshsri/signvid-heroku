@@ -1,6 +1,7 @@
 # import all necessary libraries
 from moviepy.editor import VideoFileClip, concatenate_videoclips, CompositeVideoClip, vfx, AudioFileClip
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+from ffprobe import FFProbe
 import speech_recognition as sr
 import pafy as pf
 import os
@@ -210,23 +211,29 @@ def retrieve_file(word, directory):
             try:
                 # create VideoFileClip instance of sign video
                 file_clip = VideoFileClip(file_path)
+
+                # exit to previous directory
+                os.chdir(".."), os.chdir(directory)
+                
+                print(word)
+
+                return file_clip
             
             except:
-                ffmpeg_extract_subclip(file_path, 0.04, VideoFileClip(file_path).duration, file_path)
+                # get duration of video
+                duration = int(float(FFProbe(file_path).video[0].duration) * 1000)
+
+                # create subclip 
+                ffmpeg_extract_subclip(file_path, 0.04, duration, file_path)
                 
                 # exit to previous directory
                 os.chdir(".."), os.chdir(directory)
 
                 file_clip = VideoFileClip(file_path)
 
+                print(word)
+
                 return file_clip
-
-            # exit to previous directory
-            os.chdir(".."), os.chdir(directory)
-            
-            print(word)
-
-            return file_clip
 
         else:
             # else, return to original directory

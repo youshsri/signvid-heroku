@@ -6,3 +6,4 @@ streamlit==0.82.0
 ffmpeg-python==0.2.0
 pytictoc==1.5.2
 numpy==1.20.3
+ffprobe-python==1.0.3
