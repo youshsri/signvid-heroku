@@ -1,6 +1,6 @@
 # import all necessary libraries
 from moviepy.editor import VideoFileClip, concatenate_videoclips, CompositeVideoClip, vfx, AudioFileClip
-from numpy.core.fromnumeric import resize
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 import speech_recognition as sr
 import pafy as pf
 import os
@@ -207,18 +207,26 @@ def retrieve_file(word, directory):
             # get path variable
             file_path = os.getcwd() + "/" + file_object
 
-            # create VideoFileClip instance of sign video
-            file_clip = VideoFileClip(file_path)
+            try:
+                # create VideoFileClip instance of sign video
+                file_clip = VideoFileClip(file_path)
             
-            # skip first frame to prevent error due to corruption
-            file_clip_corrected = file_clip.subclip(t_start=0.04)
+            except:
+                ffmpeg_extract_subclip(file_path, 0.04, VideoFileClip(file_path).duration, file_path)
+                
+                # exit to previous directory
+                os.chdir(".."), os.chdir(directory)
+
+                file_clip = VideoFileClip(file_path)
+
+                return file_clip
 
             # exit to previous directory
             os.chdir(".."), os.chdir(directory)
             
             print(word)
 
-            return file_clip_corrected
+            return file_clip
 
         else:
             # else, return to original directory
