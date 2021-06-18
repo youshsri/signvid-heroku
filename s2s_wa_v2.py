@@ -201,8 +201,6 @@ def retrieve_file(word, directory):
         # change directory to sse_dataset
         os.chdir(".."), os.chdir("sse_dataset")
         
-        print("1")
-
         # check if sign exists in video database
         if file_object in os.listdir():
 
@@ -215,7 +213,7 @@ def retrieve_file(word, directory):
             # exit to previous directory
             os.chdir(".."), os.chdir(directory)
             
-            print("2")
+            print(word)
 
             return file_clip
 
@@ -268,13 +266,13 @@ def get_signs(transcript, videolength, directory):
             if len(video_array) >= 1:
 
                 # retrieve first video as starting point for concatenation as VideoFileClip instance
-                sign_video = video_array[0].resize((320,240))
+                sign_video = video_array[0]
 
                 # concatenation process
                 for i in range(1,len(video_array)):
 
                     # make VideoFileClip instance of next sign video and resized
-                    addition = video_array[i].resize((320,240))
+                    addition = video_array[i]
 
                     # concatenation
                     sign_video = concatenate_videoclips([sign_video, addition])
@@ -301,8 +299,6 @@ def get_signs(transcript, videolength, directory):
                 multiplier = 10 / blackscreen_time
 
                 blackscreen = blackscreen.fx(vfx.speedx, multiplier)
-
-                blackscreen = blackscreen.resize((320,240))
 
                 sign_video = concatenate_videoclips([sign_video, blackscreen])
 
