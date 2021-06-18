@@ -208,14 +208,17 @@ def retrieve_file(word, directory):
             file_path = os.getcwd() + "/" + file_object
 
             # create VideoFileClip instance of sign video
-            file_clip = VideoFileClip(file_path).set_start((0.04))
+            file_clip = VideoFileClip(file_path)
+            
+            # skip first frame to prevent error due to corruption
+            file_clip_corrected = file_clip.subclip(t_start=0.04)
 
             # exit to previous directory
             os.chdir(".."), os.chdir(directory)
             
             print(word)
 
-            return file_clip
+            return file_clip_corrected
 
         else:
             # else, return to original directory
