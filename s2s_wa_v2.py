@@ -209,13 +209,16 @@ def retrieve_file(word, directory):
 
             # create VideoFileClip instance of sign video
             file_clip = VideoFileClip(file_path)
+            
+            # skip first frame to prevent error due to corruption
+            file_clip_corrected = file_clip.subclip(t_start=0.04)
 
             # exit to previous directory
             os.chdir(".."), os.chdir(directory)
             
             print(word)
 
-            return file_clip
+            return file_clip_corrected
 
         else:
             # else, return to original directory
@@ -240,6 +243,7 @@ def get_signs(transcript, videolength, directory):
     # iterate through each segment transcribed in transcript
     for segment in transcript:
 
+        print(segment) 
         # check if segment was silent or not
         if segment == None:
             continue
