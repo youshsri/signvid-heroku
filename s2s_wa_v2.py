@@ -341,6 +341,8 @@ def main(url):
 
         # get sign translations from transcript
         sign_translations = get_signs(transcript, videolength, dir_name)
+        
+        print("Complete")
 
         # retrieve first sign translation for first segment of transcript
         sign_concat = sign_translations["video1"]
