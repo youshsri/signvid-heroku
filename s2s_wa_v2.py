@@ -240,6 +240,7 @@ def get_signs(transcript, videolength, directory):
     # iterate through each segment transcribed in transcript
     for segment in transcript:
 
+        print(segment) 
         # check if segment was silent or not
         if segment == None:
             continue
