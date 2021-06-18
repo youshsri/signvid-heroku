@@ -355,7 +355,7 @@ def main(url):
         # composite sign videos onto original video
         video = CompositeVideoClip([original_vid, sign_concat.set_position(("right", "bottom"))])
 
-        return video
+        return video, dir_name
 
     # code 1 - file is longer than 10 minutes
     except ValueError:

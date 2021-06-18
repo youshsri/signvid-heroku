@@ -4,6 +4,7 @@
 import streamlit as st
 import s2s_wa_v2 as s2s
 import os
+import shutil
 
 # create columns to organise web app
 col1,col2,col3 = st.beta_columns([3.3,1,5])
@@ -33,7 +34,7 @@ if URL:
             st.video(URL)
 
             with st.spinner("Processing video..."):
-                video = s2s.main(URL)
+                video, dir_name = s2s.main(URL)
 
             # error raised if video is longer than 10 minutes
             if video == 1:
@@ -48,7 +49,7 @@ if URL:
             else:
 
                 # define sign_video_filename for use
-                sign_video_path = os.getcwd() + "/with_signs.mp4"
+                sign_video_path = "with_signs.mp4"
 
                 # write composite video into directory and read its bytes to be returned
                 video.write_videofile(sign_video_path)
@@ -64,6 +65,7 @@ if URL:
 
                 # change back to original directory
                 os.chdir("..")
+                shutil.rmtree(dir_name)
 
         # exception occurs if video could not be processed or does not exist
         except:
